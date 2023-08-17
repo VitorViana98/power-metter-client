@@ -59,11 +59,19 @@ export const createCircuitService = async (data) => {
       ...data,
       usuario: user,
     });
-    if (response.data.success) {
-      localStorage.setItem("token", response.data.token);
-      return true;
-    }
+    return response.data;
+  } catch (error) {
+    console.error("Erro no registro:", error);
     return false;
+  }
+};
+
+export const listCircuitService = async (data) => {
+  try {
+    const response = await api.get("/user/circuit", {
+      params: { usuario: user },
+    });
+    return response.data;
   } catch (error) {
     console.error("Erro no registro:", error);
     return false;

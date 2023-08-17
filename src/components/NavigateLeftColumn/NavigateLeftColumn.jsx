@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HOME_ROUTE, LOGIN_ROUTE, CREATE_CIRCUIT_ROUTE } from "../../consts";
+import { HOME_ROUTE, LOGIN_ROUTE, CIRCUIT_ROUTE } from "../../consts";
 
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -35,9 +35,9 @@ export default function NavigateLeftColumn() {
         </div>
         <div
           className="left-content-action-item"
-          onClick={() => redirect(CREATE_CIRCUIT_ROUTE)}
+          onClick={() => redirect(CIRCUIT_ROUTE)}
         >
-          Criar Circuito
+          Circuitos
         </div>
         {/* <div className="left-content-action-item">Dashboard</div> */}
       </div>
