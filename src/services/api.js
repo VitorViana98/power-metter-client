@@ -23,6 +23,8 @@ export const loginRoute = async (data) => {
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
       return true;
+    } else if (response.data.message === "Credenciais inválidas") {
+      return { success: false, message: "Credenciais inválidas", token: [] };
     }
     return false;
   } catch (error) {

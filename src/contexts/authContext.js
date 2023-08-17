@@ -14,9 +14,13 @@ export function AuthProvider({ children }) {
   const login = async (userData) => {
     try {
       const connectedUser = await loginRoute(userData);
+      if (connectedUser?.message === "Credenciais inválidas") {
+        return alert("Credenciais inválidas");
+      }
       console.log("aqui logou", connectedUser);
       setUser(connectedUser);
       setAuthenticated(true);
+      return connectedUser;
     } catch (error) {
       console.log("aqui login error", error);
     }

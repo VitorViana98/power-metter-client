@@ -40,3 +40,13 @@
 .login-form button:hover {
     background-color: #0056b3;
 }
+
+.crie-uma {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register-text {
+    display: flex;
+    align-items: center;
+}
