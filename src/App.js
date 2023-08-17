@@ -1,6 +1,7 @@
 import AppRoutes from "./routes";
 import backgroundImg from "./assets/background.jpeg";
 import { AuthProvider } from "./contexts/authContext";
+import { PowerViewProvider } from "./contexts/powerViewUserContext";
 function App() {
   return (
     <div
@@ -15,7 +16,9 @@ function App() {
       }}
     >
       <AuthProvider>
-        <AppRoutes />
+        <PowerViewProvider>
+          <AppRoutes />
+        </PowerViewProvider>
       </AuthProvider>
     </div>
   );

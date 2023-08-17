@@ -1,4 +1,8 @@
 import axios from "axios";
+import User from "./User";
+
+const { getUser } = new User();
+const [user] = getUser();
 
 const api = axios.create({
   baseURL: "http://localhost:3030/power-metter", // Substitua pela URL da sua API
@@ -38,6 +42,23 @@ export const loginRoute = async (data) => {
 export const registerRoute = async (data) => {
   try {
     const response = await api.post("/user/register", data);
+    if (response.data.success) {
+      localStorage.setItem("token", response.data.token);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Erro no registro:", error);
+    return false;
+  }
+};
+
+export const createCircuitService = async (data) => {
+  try {
+    const response = await api.post("/user/circuit", {
+      ...data,
+      usuario: user,
+    });
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
       return true;

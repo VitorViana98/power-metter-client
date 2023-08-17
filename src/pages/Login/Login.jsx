@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext";
+
 import * as yup from "yup";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../../contexts/authContext";
 import { HOME_ROUTE } from "../../consts";
+
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,7 +15,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
-  const [isCreatingUser, setIsCreatingUser] = useState(false); // Estado para controlar a criação de usuário
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const validationLogin = yup.object().shape({
     email: yup.string().email().required(),
@@ -32,6 +35,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       if (isCreatingUser) {
         await validationRegister.validate({
           email,
@@ -43,16 +47,18 @@ function Login() {
         setIsCreatingUser(false);
         alert(
           "Usuário criado com sucesso. Faça login com as novas credenciais."
-          );
-        return response
+        );
+        setIsLoading(false);
+        return response;
       } else {
         await validationLogin.validate({ email, password });
         const response = await login({
           email,
           password,
         });
+        setIsLoading(false);
         navigate(HOME_ROUTE);
-        return response
+        return response;
       }
     } catch (error) {
       console.error("Erro:", { error });
@@ -98,7 +104,7 @@ function Login() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
-            <button type="submit">Criar usuário</button>
+            <button type="submit" disabled={isLoading}>Criar usuário</button>
 
             <div
               className="register-text"
@@ -139,7 +145,9 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Login</button>
+          <button type="submit" disabled={isLoading}>
+            Login
+          </button>
           <div
             className="register-text"
             onClick={() => setIsCreatingUser(!isCreatingUser)}

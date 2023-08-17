@@ -1,15 +1,16 @@
-import { useContext } from "react";
-import { AuthContext } from "../contexts/authContext";
 import { matchRoute } from "../utils";
 
 function User() {
-  const { authenticated, user } = useContext(AuthContext);
+  const getUserData = () => {
+    return localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
+  };
+  
+  const user = getUserData();
 
   const isAuthenticated = () => {
     const token = getTokenData();
-    const localStoreuser = localStorage.getItem("user");
-    const user = getUserData();
-    console.log("aqui dentro", { token, user, authenticated, localStoreuser });
     return token && user;
   };
 
@@ -24,12 +25,6 @@ function User() {
       : null;
   };
 
-  const getUserData = () => {
-    console.log("aqui antes localStorage", { localStorage });
-    return localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
-  };
 
   const getToken = () => {
     return user?.token || getTokenData();

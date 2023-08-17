@@ -4,14 +4,16 @@ import {
   Navigate,
   Outlet,
   Route,
-  // Router,
   Routes,
 } from "react-router-dom";
 import Header from "./components/Header/Header";
+
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
+import CreateCircuit from "./pages/CreateCircuit/CreateCircuit";
+
 import User from "./services/User";
-import { LOGIN_ROUTE } from "./consts";
+import { CREATE_CIRCUIT_ROUTE, HOME_ROUTE, LOGIN_ROUTE } from "./consts";
 
 const PrivateRoute = () => {
   if (User().isAuthenticated()) {
@@ -29,7 +31,12 @@ export default function AppRoutes() {
         <Route exact path={LOGIN_ROUTE} element={<Login />} />
         <Route exact path="/" element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/home" element={<Home />} />
+          <Route exact path={HOME_ROUTE} element={<Home />} />
+          <Route
+            exact
+            path={CREATE_CIRCUIT_ROUTE}
+            element={<CreateCircuit />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
