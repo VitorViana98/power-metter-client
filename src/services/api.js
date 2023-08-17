@@ -22,6 +22,8 @@ export const loginRoute = async (data) => {
     const response = await api.post("/user/login", data);
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
       return true;
     } else if (response.data.message === "Credenciais inválidas") {
       return { success: false, message: "Credenciais inválidas", token: [] };

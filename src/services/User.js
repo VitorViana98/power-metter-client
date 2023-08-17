@@ -1,63 +1,55 @@
-// import { LOGIN_ROUTE, HOME_ROUTE, DASHBOARD_ROUTE } from "../consts.js";
-
+import { useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 import { matchRoute } from "../utils";
 
-class User {
-  static isAuthenticated() {
-    const token = User.getTokenData();
-    const user = User.getUserData();
-    console.log("aqui dentro", { token, user });
-    if (token && user) {
-      return true;
-    }
-    return false;
-  }
+function User() {
+  const { authenticated, user } = useContext(AuthContext);
 
-  static logout() {
+  const isAuthenticated = () => {
+    const token = getTokenData();
+    const localStoreuser = localStorage.getItem("user");
+    const user = getUserData();
+    console.log("aqui dentro", { token, user, authenticated, localStoreuser });
+    return token && user;
+  };
+
+  const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("params");
-  }
+  };
 
-  static getTokenData() {
+  const getTokenData = () => {
+    return localStorage.getItem("token")
+      ? localStorage.getItem("token")
+      : null;
+  };
+
+  const getUserData = () => {
+    console.log("aqui antes localStorage", { localStorage });
     return localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
+      ? JSON.parse(localStorage.getItem("user"))
       : null;
-  }
+  };
 
-  static getUserData() {
-    return localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).usuario
-      : null;
-  }
+  const getToken = () => {
+    return user?.token || getTokenData();
+  };
 
-  constructor() {
-    this.user = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).usuario
-      : null;
-    this.token = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).token
-      : null;
-  }
-
-  getToken() {
-    return this.token;
-  }
-
-  setItems(user) {
+  const setItems = (user) => {
     localStorage.setItem("user", JSON.stringify(user));
-  }
+  };
 
-  getUser() {
-    return this.user;
-  }
+  const getUser = () => {
+    return user?.usuario || getUserData();
+  };
 
-  isAdmin() {
-    const user = this.getUser();
-    if (user) return parseInt(user.admin) === 1;
-  }
+  const isAdmin = () => {
+    const user = getUser();
+    return user && parseInt(user.admin) === 1;
+  };
 
-  canAcessThisRoute(route) {
-    if (this.isAdmin() && !matchRoute(route, "/")) {
+  const canAccessThisRoute = (route) => {
+    if (isAdmin() && !matchRoute(route, "/")) {
       return true;
     }
     // if (matchRoute(route, VISAO_GERAL_ROUTE) && this.isProvaoOnlineVoter()) {
@@ -65,7 +57,19 @@ class User {
     // }
 
     return false;
-  }
+  };
+
+  return {
+    isAuthenticated,
+    logout,
+    getTokenData,
+    getUserData,
+    getToken,
+    setItems,
+    getUser,
+    isAdmin,
+    canAccessThisRoute,
+  };
 }
 
 export default User;

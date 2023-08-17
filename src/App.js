@@ -1,5 +1,6 @@
 import AppRoutes from "./routes";
 import backgroundImg from "./assets/background.jpeg";
+import { AuthProvider } from "./contexts/authContext";
 function App() {
   return (
     <div
@@ -13,7 +14,9 @@ function App() {
         justifyContent: "space-between",
       }}
     >
-      <AppRoutes />
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </div>
   );
 }

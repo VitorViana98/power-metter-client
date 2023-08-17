@@ -17,7 +17,6 @@ export function AuthProvider({ children }) {
       if (connectedUser?.message === "Credenciais inválidas") {
         return alert("Credenciais inválidas");
       }
-      console.log("aqui logou", connectedUser);
       setUser(connectedUser);
       setAuthenticated(true);
       return connectedUser;
@@ -31,7 +30,6 @@ export function AuthProvider({ children }) {
       const registeredUser = await registerRoute(userData);
       setUser(registeredUser);
       setAuthenticated(true);
-      console.log("aqui logou", registeredUser);
     } catch (error) {
       console.log("aqui register error", error);
     }

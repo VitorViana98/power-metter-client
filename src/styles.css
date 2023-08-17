@@ -1,6 +1,6 @@
 body {
     margin: 0;
     font-family: 'Roboto';
-    color: 'rgb(157, 168, 183)';
-    background-color: 'rgba(16, 20, 24, 0.8)';
+    color: rgb(157, 168, 183);
+    background-color: rgba(16, 20, 24, 0.8);
 }

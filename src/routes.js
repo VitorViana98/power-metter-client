@@ -1,45 +1,37 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
+  BrowserRouter,
   Navigate,
+  Outlet,
+  Route,
+  // Router,
+  Routes,
 } from "react-router-dom";
-import Header from "./components/Header";
-import { AuthProvider } from "./contexts/authContext";
+import Header from "./components/Header/Header";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import User from "./services/User";
 import { LOGIN_ROUTE } from "./consts";
 
-function AppRoutes() {
-  console.log("aqui antes");
-  if (User.isAuthenticated()) {
-    console.log("aqui antenticou");
-    return (
-      <AuthProvider>
-        <Router>
-          <>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-            </Routes>
-          </>
-        </Router>
-      </AuthProvider>
-    );
+const PrivateRoute = () => {
+  if (User().isAuthenticated()) {
+    return <Outlet />;
   } else {
-    return (
-      <Navigate
-        to={{
-          pathname: LOGIN_ROUTE,
-          state: { from: window.location },
-        }}
-      />
-    );
+    return <Navigate to={LOGIN_ROUTE} />;
   }
-}
+};
 
-export default AppRoutes;
+export default function AppRoutes() {
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route exact path={LOGIN_ROUTE} element={<Login />} />
+        <Route exact path="/" element={<PrivateRoute />}>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}

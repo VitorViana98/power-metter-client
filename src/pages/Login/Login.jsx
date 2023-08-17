@@ -3,9 +3,11 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/authContext";
 import * as yup from "yup";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import { HOME_ROUTE } from "../../consts";
 
 function Login() {
-  // const history = useNavigate();
+  const navigate = useNavigate();
   const { login, register } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,17 +41,18 @@ function Login() {
         });
         const response = await register({ email, password, name });
         setIsCreatingUser(false);
-        console.log("aqui response register", response);
         alert(
           "Usuário criado com sucesso. Faça login com as novas credenciais."
-        );
+          );
+        return response
       } else {
         await validationLogin.validate({ email, password });
         const response = await login({
           email,
           password,
         });
-        console.log("aqui response login", response);
+        navigate(HOME_ROUTE);
+        return response
       }
     } catch (error) {
       console.error("Erro:", { error });
