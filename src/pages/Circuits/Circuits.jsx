@@ -7,9 +7,12 @@ import { Modal } from "@mui/material";
 
 import * as yup from "yup";
 
+import { useNavigate } from "react-router-dom";
+
 import "./Circuits.css";
 
 function Circuits() {
+  const navigate = useNavigate();
   const { createCircuit, listCircuits, circuits } =
     useContext(PowerViewContext);
   const [circuitName, setCircuitName] = useState("");
@@ -21,6 +24,14 @@ function Circuits() {
   const validationCreateCircuit = yup.object().shape({
     circuitName: yup.string().min(1).required(),
   });
+
+  const redirect = (route) => {
+    if (route && route === window.location.pathname) {
+      return;
+    } else if (route) {
+      return navigate(route);
+    }
+  };
 
   const handleCreateCircuit = async (e) => {
     e.preventDefault();
@@ -95,7 +106,7 @@ function Circuits() {
               Criar Circuito
             </button>
           </div>
-          {circuits.length > 0 ? (
+          {circuits?.length > 0 ? (
             <table>
               <thead>
                 <tr>
@@ -106,7 +117,13 @@ function Circuits() {
               </thead>
               <tbody>
                 {circuits.map((circuito) => (
-                  <tr key={circuito.circuit_id}>
+                  <tr
+                    key={circuito.circuit_id}
+                    style={{ cursor: "pointer" }}
+                    onClick={() =>
+                      redirect(`/circuit/${circuito.circuit_id}/dashboard`)
+                    }
+                  >
                     <td>{circuito.circuit_id}</td>
                     <td>{circuito.circuit_name}</td>
                     <td>{circuito.circuit_description}</td>

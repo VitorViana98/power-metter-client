@@ -4,9 +4,17 @@ function User() {
   const getUserData = () => {
     return localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
-      : null;
+      : {
+          created_at: null,
+          email: null,
+          updated_at: null,
+          user_admin: null,
+          user_id: null,
+          user_login: null,
+          user_name: null,
+        };
   };
-  
+
   const user = getUserData();
 
   const isAuthenticated = () => {
@@ -20,11 +28,8 @@ function User() {
   };
 
   const getTokenData = () => {
-    return localStorage.getItem("token")
-      ? localStorage.getItem("token")
-      : null;
+    return localStorage.getItem("token") ? localStorage.getItem("token") : null;
   };
-
 
   const getToken = () => {
     return user?.token || getTokenData();
@@ -35,7 +40,7 @@ function User() {
   };
 
   const getUser = () => {
-    return user?.usuario || getUserData();
+    return user?.usuario ? user?.usuario : getUserData();
   };
 
   const isAdmin = () => {

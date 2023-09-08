@@ -13,7 +13,13 @@ import Home from "./pages/Home/Home";
 import Circuits from "./pages/Circuits/Circuits";
 
 import User from "./services/User";
-import { CIRCUIT_ROUTE, HOME_ROUTE, LOGIN_ROUTE } from "./consts";
+import {
+  CIRCUIT_ROUTE,
+  CIRCUIT_DASHBOARD_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+} from "./consts";
+import CircuitDashboard from "./pages/CircuitDashboard/CircuitDashboard";
 
 const PrivateRoute = () => {
   if (User().isAuthenticated()) {
@@ -32,11 +38,8 @@ export default function AppRoutes() {
         <Route exact path="/" element={<PrivateRoute />}>
           <Route exact path="/" element={<Home />} />
           <Route exact path={HOME_ROUTE} element={<Home />} />
-          <Route
-            exact
-            path={CIRCUIT_ROUTE}
-            element={<Circuits />}
-          />
+          <Route exact path={CIRCUIT_ROUTE} element={<Circuits />} />
+          <Route exact path={CIRCUIT_DASHBOARD_ROUTE} element={<CircuitDashboard />} />
         </Route>
       </Routes>
     </BrowserRouter>

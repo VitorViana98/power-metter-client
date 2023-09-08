@@ -73,7 +73,19 @@ export const listCircuitService = async (data) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Erro no registro:", error);
+    console.error("Erro na listagem:", error);
+    return false;
+  }
+};
+
+export const listDashboardService = async (circuit_id) => {
+  try {
+    const response = await api.get(`/user/circuit/${circuit_id}/dashboard`, {
+      params: { usuario: user },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro na listagem:", error);
     return false;
   }
 };
