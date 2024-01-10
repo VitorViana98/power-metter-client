@@ -2,6 +2,21 @@ import { matchRoute } from "../utils";
 
 function User() {
   const getUserData = () => {
+    console.log(
+      "aqui user",
+      !!localStorage.getItem("user"),
+      JSON.parse(localStorage.getItem("user")),
+      {
+        created_at: null,
+        email: null,
+        updated_at: null,
+        user_admin: null,
+        user_id: null,
+        user_login: null,
+        user_name: null,
+      }
+    );
+
     return localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
       : {

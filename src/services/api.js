@@ -2,10 +2,14 @@ import axios from "axios";
 import User from "./User";
 
 const { getUser } = new User();
-const [user] = getUser();
+console.log("aqui 1", getUser);
+const user = getUser();
+
+const ip_address = "192.168.10.12";
 
 const api = axios.create({
-  baseURL: "http://localhost:3030/power-metter", // Substitua pela URL da sua API
+  // baseURL: "http://localhost:3000/power-metter", // Substitua pela URL da sua API
+  baseURL: `http://${ip_address}:3000/power-metter`, // Substitua pela URL da sua API
 });
 
 api.interceptors.request.use(

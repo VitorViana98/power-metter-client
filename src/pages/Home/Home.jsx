@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="home-container">
       <NavigateLeftColumn />
-      <div className="rigth-content">direita</div>
+      <div className="rigth-content">Resumos</div>
     </div>
   );
 }

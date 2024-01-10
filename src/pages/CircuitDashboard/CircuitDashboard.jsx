@@ -26,25 +26,14 @@ function CircuitDashboard() {
 
     return [
       {
-        name: "Potencia",
-        type: "area",
-        data: powers,
-      },
-      {
         name: "Corrente",
         type: "line",
         data: currents,
-      },
-      {
-        name: "Tensao",
-        type: "line",
-        data: voltages,
       },
     ];
   };
 
   const getOptions = () => {
-    // const timestamps = dashboardData?.map((entry) => entry.timestamp);
     const timestamps = dashboardData?.map((entry) =>
       moment(entry.timestamp).format("DD/MM/YYYY HH:mm:ss")
     );
@@ -53,6 +42,9 @@ function CircuitDashboard() {
       chart: {
         height: 350,
         type: "line",
+      },
+      dataLabels: {
+        enabled: false,
       },
       stroke: {
         curve: "smooth",
