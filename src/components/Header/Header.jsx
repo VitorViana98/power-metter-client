@@ -26,7 +26,7 @@ function Header() {
           alignItems: "center",
           cursor: "pointer",
         }}
-        onClick={() => redirect("/home")}
+        onClick={() => redirect("/")}
       >
         <div className="icon-container">
           <img

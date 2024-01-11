@@ -14,14 +14,8 @@ function CircuitDashboard() {
     useContext(PowerViewContext);
 
   const getSeries = () => {
-    const powers = dashboardData?.map(
-      (entry) => `${parseFloat(entry.power).toFixed(2)}`
-    );
     const currents = dashboardData?.map(
       (entry) => `${parseFloat(entry.current_measurement).toFixed(2)}`
-    );
-    const voltages = dashboardData?.map(
-      (entry) => `${parseFloat(entry.voltage_measurement).toFixed(2)}`
     );
 
     return [
@@ -91,6 +85,18 @@ function CircuitDashboard() {
     };
   };
 
+  const getChartSeries = () => {
+    if (dashboardData === "No data") {
+      return <>Sem dados</>;
+    } else if (dashboardData?.length > 0) {
+      return (
+        <>
+          <Chart chartOptions={getOptions()} chartData={getSeries()} />
+        </>
+      );
+    }
+  };
+
   useEffect(() => {
     const url = window.location.pathname;
     const circuitId = url.split("/")[2];
@@ -115,11 +121,7 @@ function CircuitDashboard() {
           {dashboardInfo.circuit_description}
         </p>
 
-        {dashboardData.length > 0 && (
-          <>
-            <Chart chartOptions={getOptions()} chartData={getSeries()} />
-          </>
-        )}
+        {getChartSeries()}
       </div>
     </div>
   );
