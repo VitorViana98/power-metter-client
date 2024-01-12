@@ -54,19 +54,7 @@ function CircuitDashboard() {
       yaxis: [
         {
           title: {
-            text: "Series A",
-          },
-        },
-        {
-          opposite: true,
-          title: {
-            text: "Series B",
-          },
-        },
-        {
-          opposite: true,
-          title: {
-            text: "Series C",
+            text: "Corrente",
           },
         },
       ],
