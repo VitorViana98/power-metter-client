@@ -22,7 +22,7 @@ export function PowerViewProvider({ children }) {
       setCircuits((o) => [...o, createdCircuit.content]);
       return createdCircuit.content;
     } catch (error) {
-      console.log("aqui create circuit error", error);
+      console.log("Create circuit error", error);
     }
   };
 
@@ -32,21 +32,30 @@ export function PowerViewProvider({ children }) {
       setCircuits(listedCircuits.content);
       return listedCircuits.content;
     } catch (error) {
-      console.log("aqui list circuits error", error);
+      console.log("List circuits error", error);
     }
   };
 
   const listDashboard = async (circuitFilter) => {
     try {
       const listedDashboard = await listDashboardService(circuitFilter);
-      setDashboardData(listedDashboard.content.results);
-      setDashboardInfo({
-        circuit_name: listedDashboard.content.circuit_name,
-        circuit_description: listedDashboard.content.circuit_description,
-      });
+
+      if (listedDashboard?.content?.message === "Circuit results not found") {
+        setDashboardData("No data");
+        setDashboardInfo({
+          circuit_name: "",
+          circuit_description: "",
+        });
+      } else {
+        setDashboardData(listedDashboard.content.results);
+        setDashboardInfo({
+          circuit_name: listedDashboard.content.circuit_name,
+          circuit_description: listedDashboard.content.circuit_description,
+        });
+      }
       return listedDashboard.content;
     } catch (error) {
-      console.log("aqui list circuit dashboard error", error);
+      console.log("List circuit dashboard error", error);
     }
   };
 

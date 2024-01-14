@@ -1,6 +1,5 @@
 import AppRoutes from "./routes";
 import backgroundImg from "./assets/background.jpeg";
-import { AuthProvider } from "./contexts/authContext";
 import { PowerViewProvider } from "./contexts/powerViewUserContext";
 function App() {
   return (
@@ -15,11 +14,9 @@ function App() {
         justifyContent: "space-between",
       }}
     >
-      <AuthProvider>
-        <PowerViewProvider>
-          <AppRoutes />
-        </PowerViewProvider>
-      </AuthProvider>
+      <PowerViewProvider>
+        <AppRoutes />
+      </PowerViewProvider>
     </div>
   );
 }

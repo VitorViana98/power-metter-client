@@ -14,37 +14,20 @@ function CircuitDashboard() {
     useContext(PowerViewContext);
 
   const getSeries = () => {
-    const powers = dashboardData?.map(
-      (entry) => `${parseFloat(entry.power).toFixed(2)}`
-    );
     const currents = dashboardData?.map(
       (entry) => `${parseFloat(entry.current_measurement).toFixed(2)}`
     );
-    const voltages = dashboardData?.map(
-      (entry) => `${parseFloat(entry.voltage_measurement).toFixed(2)}`
-    );
 
     return [
-      {
-        name: "Potencia",
-        type: "area",
-        data: powers,
-      },
       {
         name: "Corrente",
         type: "line",
         data: currents,
       },
-      {
-        name: "Tensao",
-        type: "line",
-        data: voltages,
-      },
     ];
   };
 
   const getOptions = () => {
-    // const timestamps = dashboardData?.map((entry) => entry.timestamp);
     const timestamps = dashboardData?.map((entry) =>
       moment(entry.timestamp).format("DD/MM/YYYY HH:mm:ss")
     );
@@ -53,6 +36,9 @@ function CircuitDashboard() {
       chart: {
         height: 350,
         type: "line",
+      },
+      dataLabels: {
+        enabled: false,
       },
       stroke: {
         curve: "smooth",
@@ -68,19 +54,7 @@ function CircuitDashboard() {
       yaxis: [
         {
           title: {
-            text: "Series A",
-          },
-        },
-        {
-          opposite: true,
-          title: {
-            text: "Series B",
-          },
-        },
-        {
-          opposite: true,
-          title: {
-            text: "Series C",
+            text: "Corrente",
           },
         },
       ],
@@ -97,6 +71,18 @@ function CircuitDashboard() {
         },
       },
     };
+  };
+
+  const getChartSeries = () => {
+    if (dashboardData === "No data") {
+      return <>Sem dados</>;
+    } else if (dashboardData?.length > 0) {
+      return (
+        <>
+          <Chart chartOptions={getOptions()} chartData={getSeries()} />
+        </>
+      );
+    }
   };
 
   useEffect(() => {
@@ -123,11 +109,7 @@ function CircuitDashboard() {
           {dashboardInfo.circuit_description}
         </p>
 
-        {dashboardData.length > 0 && (
-          <>
-            <Chart chartOptions={getOptions()} chartData={getSeries()} />
-          </>
-        )}
+        {getChartSeries()}
       </div>
     </div>
   );
