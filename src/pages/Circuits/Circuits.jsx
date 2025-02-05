@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { PowerViewContext } from "../../contexts/powerViewUserContext";
 import NavigateLeftColumn from "../../components/NavigateLeftColumn/NavigateLeftColumn";
+import Button from "../../components/Button/Button";
 
 import { Modal } from "@mui/material";
 
@@ -77,13 +78,12 @@ function Circuits() {
               value={circuitDescription}
               onChange={(e) => setCircuitDescription(e.target.value)}
             />
-            <button
-              variant="contained"
+            <Button
               type="submit"
               disabled={isLoadingCreatingCircuit}
             >
               Criar Circuito
-            </button>
+            </Button>
           </form>
         </div>
       </Modal>
@@ -102,9 +102,9 @@ function Circuits() {
         <div className="lista-circuitos">
           <div className="list-action-area" style={{ display: "flex" }}>
             <h2>Lista de Circuitos</h2>
-            <button onClick={() => setOpenCreateCircuitModal(true)}>
+            <Button onClick={() => setOpenCreateCircuitModal(true)}>
               Criar Circuito
-            </button>
+            </Button>
           </div>
           {circuits?.length > 0 ? (
             <table>

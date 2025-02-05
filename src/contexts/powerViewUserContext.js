@@ -22,7 +22,7 @@ export function PowerViewProvider({ children }) {
       setCircuits((o) => [...o, createdCircuit.content]);
       return createdCircuit.content;
     } catch (error) {
-      console.log("Create circuit error", error);
+      console.error("Create circuit error", error);
     }
   };
 
@@ -32,7 +32,7 @@ export function PowerViewProvider({ children }) {
       setCircuits(listedCircuits.content);
       return listedCircuits.content;
     } catch (error) {
-      console.log("List circuits error", error);
+      console.error("List circuits error", error);
     }
   };
 
@@ -55,24 +55,24 @@ export function PowerViewProvider({ children }) {
       }
       return listedDashboard.content;
     } catch (error) {
-      console.log("List circuit dashboard error", error);
+      console.error("List circuit dashboard error", error);
     }
   };
 
+  const contextValue = React.useMemo(() => ({
+    circuits,
+    setCircuits,
+    createCircuit,
+    listCircuits,
+    listDashboard,
+    dashboardData,
+    setDashboardData,
+    dashboardInfo,
+    setDashboardInfo,
+  }), [circuits, dashboardData, dashboardInfo]);
+
   return (
-    <PowerViewContext.Provider
-      value={{
-        circuits,
-        setCircuits,
-        createCircuit,
-        listCircuits,
-        listDashboard,
-        dashboardData,
-        setDashboardData,
-        dashboardInfo,
-        setDashboardInfo,
-      }}
-    >
+    <PowerViewContext.Provider value={contextValue}>
       {children}
     </PowerViewContext.Provider>
   );

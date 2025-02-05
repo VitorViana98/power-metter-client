@@ -13,6 +13,7 @@ import {
   CIRCUIT_DASHBOARD_ROUTE,
 } from "./consts";
 import CircuitDashboard from "./pages/CircuitDashboard/CircuitDashboard";
+import Home from "./pages/Home/Home";
 
 
 export default function AppRoutes() {
@@ -20,7 +21,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Header />
       <Routes>
-          <Route exact path="/" element={<Circuits />} />
+          <Route exact path="/" element={<Home />} />
           <Route exact path={CIRCUIT_ROUTE} element={<Circuits />} />
           <Route exact path={CIRCUIT_DASHBOARD_ROUTE} element={<CircuitDashboard />} />
       </Routes>

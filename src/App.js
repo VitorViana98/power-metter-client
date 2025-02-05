@@ -5,7 +5,7 @@ function App() {
   return (
     <div
       style={{
-        fontFamily: "Roboto",
+        // fontFamily: "Roboto",
         backgroundImage: `url(${backgroundImg})`,
         height: "100vh",
         width: "100vw",

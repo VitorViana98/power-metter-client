@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const ip_address = "192.168.10.12";
+const ip_address = "192.168.1.154";
 
 const api = axios.create({
   baseURL: `http://${ip_address}:3000/power-metter`, // Substitua pela URL da sua API

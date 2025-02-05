@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 
-import Chart from "../../components/Chart/Chart";
+import CustomChart from "../../components/Chart/CustomChart";
 import NavigateLeftColumn from "../../components/NavigateLeftColumn/NavigateLeftColumn";
 
 import { PowerViewContext } from "../../contexts/powerViewUserContext";
@@ -34,31 +34,55 @@ function CircuitDashboard() {
 
     return {
       chart: {
+        id: "current-area-chart",
         height: 350,
         type: "line",
       },
       dataLabels: {
         enabled: false,
       },
-      stroke: {
-        curve: "smooth",
-      },
       fill: {
         type: "solid",
-        opacity: [0.35, 1, 1],
+        colors: ["0049CD"],
+        opacity: 0.5,
+      },
+      grid: {
+        strokeDashArray: 10,
+        position: "back",
+        borderColor: "#F6F6F6",
+        padding: {
+          top: 20,
+          right: 20,
+          bottom: 10,
+          left: 20,
+        },
       },
       labels: timestamps,
       markers: {
         size: 0,
       },
-      yaxis: [
-        {
-          title: {
-            text: "Corrente",
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      yaxis: {
+        tickAmount: 8,
+        lines: {
+          show: true,
+        },
+        labels: {
+          style: {
+            fontSize: "1rem",
+            colors: ["#878787"],
           },
         },
-      ],
+        title: {
+          text: "Corrente",
+        },
+      },
       tooltip: {
+        theme: "dark",
         shared: true,
         intersect: false,
         y: {
@@ -70,6 +94,11 @@ function CircuitDashboard() {
           },
         },
       },
+      zoom: {
+        enabled: true,
+        type: "xy",
+        autoScaleYaxis: true,
+      },
     };
   };
 
@@ -78,9 +107,7 @@ function CircuitDashboard() {
       return <>Sem dados</>;
     } else if (dashboardData?.length > 0) {
       return (
-        <>
-          <Chart chartOptions={getOptions()} chartData={getSeries()} />
-        </>
+        <CustomChart chartOptions={getOptions()} chartData={getSeries()} />
       );
     }
   };
@@ -99,7 +126,7 @@ function CircuitDashboard() {
           display: "flex",
           flexDirection: "column",
           width: "100%",
-          backgroundColor: "#333333",
+          backgroundColor: "#808080",
         }}
       >
         <h2 style={{ margin: "4px 16px", marginTop: "16px" }}>
